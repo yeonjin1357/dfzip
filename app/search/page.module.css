@@ -1,0 +1,95 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 40px 0 0;
+}
+
+.character_list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.character_list > li {
+  position: relative;
+  width: calc(25% - 8px);
+  padding: 20px;
+  border: 1px solid #acacac;
+}
+
+.character_list > li:nth-child(n + 5):nth-child(-n + 99) {
+  margin-top: 10px;
+}
+
+.character {
+  position: relative;
+}
+
+.character .avatars {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 250px;
+}
+
+.character .avatars img {
+  position: relative;
+  left: 5px;
+  bottom: -10px;
+}
+
+.character .fame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #c1ac95;
+}
+
+.character .name {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+}
+
+.character .adventure {
+  text-align: center;
+  font-size: 14px;
+  color: #4e8d7c;
+  font-weight: 500;
+}
+
+.character .sub_info {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 1px 12px;
+  gap: 20px;
+  color: #333;
+  background: #727272;
+  border-radius: 5px;
+}
+
+.character .job {
+  color: #dcdcdc;
+  font-size: 14px;
+}
+
+.character .server {
+  color: #f6a730;
+  font-size: 14px;
+}

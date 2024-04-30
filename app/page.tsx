@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { searchCharacters } from "../lib/api";
+import { useRouter } from "next/navigation";
 
 import classes from "./page.module.css";
 
 export default function Home() {
   const [input, setInput] = useState("");
+  const router = useRouter();
 
   const handleSearch = async () => {
-    const data = await searchCharacters("all", input);
-    console.log(data); // 검색 결과를 콘솔에 출력
+    router.push(`/search?server=all&name=${input}`);
   };
 
   return (

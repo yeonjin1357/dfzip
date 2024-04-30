@@ -1,0 +1,45 @@
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.header_wrap {
+  width: 100%;
+  padding: 12px 20px;
+  background: #212227;
+}
+
+.header_wrap > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dnf_logo img {
+  filter: drop-shadow(2px 4px 6px #424242);
+}
+
+.menu_bar {
+  width: 100%;
+  padding: 10px 20px;
+  background: #27282e;
+}
+
+.menu_bar > div {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.menu {
+  display: flex;
+  gap: 40px;
+}
+
+.menu > li > a {
+  color: #fff;
+}
