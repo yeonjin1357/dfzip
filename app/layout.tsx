@@ -7,8 +7,11 @@ import "./globals.css";
 const noto = Noto_Sans_KR({ preload: false });
 
 export const metadata: Metadata = {
-  title: "던파집 - 던파의 모든 것",
+  title: "DFZIP - 던파의 모든 것",
   description: "캐릭터 정보, 랭킹, 경매장 정보를 포함한 모든 정보를 확인해보세요.",
+  icons: {
+    icon: "/icons/favicon.ico",
+  },
 };
 
 export default function RootLayout({
