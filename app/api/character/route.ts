@@ -41,6 +41,12 @@ export async function POST(req: NextRequest) {
     );
     return NextResponse.json({ success: true, data: character }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    // error 객체가 Error 인스턴스인지 확인
+    if (error instanceof Error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    } else {
+      // error 객체가 문자열이나 다른 타입인 경우, 일반 메시지를 반환
+      return NextResponse.json({ success: false, error: "An unknown error occurred" }, { status: 400 });
+    }
   }
 }
