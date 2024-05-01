@@ -62,10 +62,13 @@
 }
 
 .character .adventure {
+  position: relative;
   text-align: center;
   font-size: 14px;
   color: #4e8d7c;
   font-weight: 500;
+  z-index: 5;
+  cursor: pointer;
 }
 
 .character .sub_info {

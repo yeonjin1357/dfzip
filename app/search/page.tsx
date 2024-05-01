@@ -42,6 +42,15 @@ const SearchPageContent = () => {
     );
   };
 
+  const handleCharacterClick = (serverId: string, characterId: string) => {
+    router.push(`/character?server=${serverId}&id=${characterId}`);
+  };
+
+  const handleAdventureSearch = (event: React.MouseEvent<HTMLParagraphElement>, adventureName: string) => {
+    event.stopPropagation();
+    router.push(`/search?server=adven&name=${adventureName}`);
+  };
+
   useEffect(() => {
     if (server && name) {
       const fetchCharacters = async () => {
@@ -74,10 +83,6 @@ const SearchPageContent = () => {
     }
   }, [server, name]);
 
-  const handleCharacterClick = (serverId: string, characterId: string) => {
-    router.push(`/character?server=${serverId}&id=${characterId}`);
-  };
-
   return (
     <div className={classes.wrap}>
       <ul className={classes.character_list}>
@@ -96,7 +101,7 @@ const SearchPageContent = () => {
                   <p>{char.characterName}</p>
                 </div>
                 <div className={classes.adventure}>
-                  <p>{char.avatars?.adventureName}</p>
+                  <p onClick={(event) => handleAdventureSearch(event, char.avatars?.adventureName)}>{char.avatars?.adventureName}</p>
                 </div>
 
                 <div className={classes.sub_info}>
