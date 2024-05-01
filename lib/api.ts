@@ -93,7 +93,7 @@ export const fetchCharacterFame = async (serverId: string) => {
 };
 
 // 경매장 등록 아이템 검색
-export const searchAuctionItems = async (queryParams) => {
+export const searchAuctionItems = async (queryParams: any) => {
   return (await api.get(`auction`, { params: queryParams })).data;
 };
 
@@ -103,12 +103,12 @@ export const fetchAuctionItem = async (auctionNo: string) => {
 };
 
 // 경매장 시세 검색
-export const searchAuctionSoldItems = async (queryParams) => {
+export const searchAuctionSoldItems = async (queryParams: any) => {
   return (await api.get(`auction-sold`, { params: queryParams })).data;
 };
 
 // 아바타 마켓 상품 검색
-export const searchAvatarMarketItems = async (queryParams) => {
+export const searchAvatarMarketItems = async (queryParams: any) => {
   return (await api.get(`avatar-market/sale`, { params: queryParams })).data;
 };
 
@@ -118,7 +118,7 @@ export const fetchAvatarMarketItem = async (goodsNo: string) => {
 };
 
 // 아바타 마켓 상품 시세 검색
-export const searchAvatarMarketSoldItems = async (queryParams) => {
+export const searchAvatarMarketSoldItems = async (queryParams: any) => {
   return (await api.get(`avatar-market/sold`, { params: queryParams })).data;
 };
 
@@ -133,7 +133,7 @@ export const fetchAvatarMarketHashtags = async () => {
 };
 
 // 아이템 검색
-export const searchItems = async (queryParams) => {
+export const searchItems = async (queryParams: any) => {
   return (await api.get(`items`, { params: queryParams })).data;
 };
 
