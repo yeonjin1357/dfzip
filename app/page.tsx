@@ -38,7 +38,19 @@ export default function Home() {
           <Image src="/images/logow.svg" width={240} height={0} alt="로고 이미지"></Image>
         </div>
         <form onSubmit={handleSearch} className={classes.search_box}>
-          <Select options={serverOptions} value={server} onChange={setServer} className={classes.select} />
+          <Select
+            options={serverOptions}
+            value={server}
+            onChange={(newValue, actionMeta) => {
+              if (newValue) {
+                setServer(newValue);
+              } else {
+                // 선택이 해제되었을 때의 상태 처리, 예를 들면 초기 상태로 설정
+                setServer({ value: "all", label: "전체" });
+              }
+            }}
+            className={classes.select}
+          />
           <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="캐릭터 이름 입력" />
           <button type="submit">
             <Image src="/icons/search_icon.svg" width={30} height={0} alt="로고 이미지"></Image>
