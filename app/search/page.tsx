@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { Suspense } from "react";
 
 import { searchCharacters, fetchCharacterAvatars } from "@/lib/api";
 import serverNames from "@/utils/data/serverName";
@@ -111,4 +112,10 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default function PageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPage />
+    </Suspense>
+  );
+}
