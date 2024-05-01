@@ -19,7 +19,7 @@ interface Charcter {
   avatarsImgSrc: string;
 }
 
-const SearchPage = () => {
+const SearchPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const server = searchParams.get("server");
@@ -112,10 +112,10 @@ const SearchPage = () => {
   );
 };
 
-export default function PageWrapper() {
+export default function SearchPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <SearchPage />
+      <SearchPageContent />
     </Suspense>
   );
 }

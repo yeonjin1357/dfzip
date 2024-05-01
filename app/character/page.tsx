@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { fetchCharacterBasicInfo, fetchCharacterTimeline, fetchCharacterStatus /* other imports */ } from "@/lib/api";
 
 interface CharacterDetails {
@@ -10,7 +11,7 @@ interface CharacterDetails {
   status: object;
 }
 
-const CharacterPage = () => {
+const CharacterPageContent = () => {
   const searchParams = useSearchParams();
   const serverId = searchParams.get("server");
   const characterId = searchParams.get("id");
@@ -33,6 +34,14 @@ const CharacterPage = () => {
   }, [serverId, characterId]);
 
   return <div>{/* Render character details based on fetched data */}</div>;
+};
+
+const CharacterPage = () => {
+  return (
+    <Suspense fallback={<div>Loading character details...</div>}>
+      <CharacterPageContent />
+    </Suspense>
+  );
 };
 
 export default CharacterPage;
