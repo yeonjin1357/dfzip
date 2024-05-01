@@ -37,7 +37,7 @@ const SearchPageContent = () => {
           body: JSON.stringify(char),
         });
         const data = await response.json();
-        console.log("Save response:", data);
+        // console.log("Save response:", data);
       })
     );
   };
@@ -65,7 +65,7 @@ const SearchPageContent = () => {
               return { ...char, avatars, avatarsImgSrc };
             })
           );
-          console.log(charactersWithAvatars);
+          // console.log(charactersWithAvatars);
           setCharacters(charactersWithAvatars);
           saveCharacterData(charactersWithAvatars);
         }
@@ -85,7 +85,7 @@ const SearchPageContent = () => {
           <li key={char.characterId} onClick={() => handleCharacterClick(char.serverId, char.characterId)}>
             <div className={classes.character}>
               <div className={classes.avatars}>
-                <Image src={char.avatarsImgSrc} width={250} height={0} alt="아바타 이미지"></Image>
+                <Image src={char.avatarsImgSrc} width={250} height={0} placeholder="blur" blurDataURL={char.avatarsImgSrc} alt="아바타 이미지"></Image>
               </div>
               <div className={classes.info}>
                 <div className={classes.fame}>
