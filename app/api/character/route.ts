@@ -10,8 +10,9 @@ export async function GET(req: NextRequest) {
 
   if (server === "adven" && adventureName) {
     try {
+      const regex = new RegExp(`^${adventureName}$`, "i"); // 정확한 매칭을 위한 정규 표현식
       const characters = await Character.find({
-        "avatars.adventureName": { $regex: new RegExp(adventureName as string, "i") }, // adventureName으로 내부 객체 검색
+        "avatars.adventureName": { $regex: regex },
       });
       return NextResponse.json(characters, { status: 200 });
     } catch (error) {
