@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 
 import { searchCharacters, fetchCharacterAvatars } from "@/lib/api";
+import { saveCharacterData } from "@/utils/saveCharacterData";
 import serverNames from "@/utils/data/serverName";
 import classes from "./page.module.css";
 
@@ -25,22 +26,6 @@ const SearchPageContent = () => {
   const server = searchParams.get("server");
   const name = searchParams.get("name");
   const [characters, setCharacters] = useState<Charcter[]>([]);
-
-  const saveCharacterData = async (characters: any) => {
-    await Promise.all(
-      characters.map(async (char: any) => {
-        const response = await fetch("/api/character", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(char),
-        });
-        const data = await response.json();
-        // console.log("Save response:", data);
-      })
-    );
-  };
 
   const handleCharacterClick = (serverId: string, characterId: string) => {
     router.push(`/character?server=${serverId}&id=${characterId}`);
