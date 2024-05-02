@@ -1,31 +1,21 @@
+// app/character/page.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Suspense } from "react";
 
-import { searchCharacters, fetchCharacterAvatars } from "@/lib/api";
-import { saveCharacterData } from "@/utils/saveCharacterData";
+import { useCharacters } from "@/utils/useCharacters";
 import serverNames from "@/utils/data/serverName";
 import classes from "./page.module.css";
-
-interface Charcter {
-  characterId: string;
-  characterName: string;
-  jobGrowName: string;
-  fame: number;
-  serverId: string;
-  avatars?: any;
-  avatarsImgSrc: string;
-}
 
 const SearchPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const server = searchParams.get("server");
   const name = searchParams.get("name");
-  const [characters, setCharacters] = useState<Charcter[]>([]);
+  const characters = useCharacters(server, name);
 
   const handleCharacterClick = (serverId: string, characterId: string) => {
     router.push(`/character?server=${serverId}&id=${characterId}`);
@@ -35,38 +25,6 @@ const SearchPageContent = () => {
     event.stopPropagation();
     router.push(`/search?server=adven&name=${adventureName}`);
   };
-
-  useEffect(() => {
-    if (server && name) {
-      const fetchCharacters = async () => {
-        if (server === "adven") {
-          // 모험단 이름으로 검색
-          const response = await fetch(`/api/character?server=adven&adventureName=${name}`, {
-            method: "GET",
-          });
-          const data = await response.json();
-          if (response.ok) {
-            setCharacters(data); // 검색 결과를 상태에 저장
-          } else {
-            console.error("Failed to fetch characters:", data.message);
-          }
-        } else {
-          const basicData = await searchCharacters(server as string, name as string);
-          const charactersWithAvatars = await Promise.all(
-            basicData.rows.map(async (char: any) => {
-              const avatars = await fetchCharacterAvatars(char.serverId, char.characterId);
-              const avatarsImgSrc = `https://img-api.neople.co.kr/df/servers/${char.serverId}/characters/${char.characterId}?zoom=1`;
-              return { ...char, avatars, avatarsImgSrc };
-            })
-          );
-          // console.log(charactersWithAvatars);
-          setCharacters(charactersWithAvatars);
-          saveCharacterData(charactersWithAvatars);
-        }
-      };
-      fetchCharacters();
-    }
-  }, [server, name]);
 
   return (
     <div className={classes.wrap}>
@@ -88,7 +46,6 @@ const SearchPageContent = () => {
                 <div className={classes.adventure}>
                   <p onClick={(event) => handleAdventureSearch(event, char.avatars?.adventureName)}>{char.avatars?.adventureName}</p>
                 </div>
-
                 <div className={classes.sub_info}>
                   <p className={classes.job}>{char.jobGrowName}</p>
                   <p className={classes.server}>{serverNames[char.serverId] || char.serverId}</p>
