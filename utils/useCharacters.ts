@@ -22,16 +22,22 @@ export const useCharacters = (server: string | null, name: string | null) => {
       if (!server || !name) return;
       setAllImagesLoaded(false); // 새로운 검색이 시작되면 로드 상태를 초기화
 
-      const responseHandler = async (basicData: any) => {
-        const charactersWithAvatars = await Promise.all(
-          basicData.rows.map(async (char: any) => {
-            const avatars = await fetchCharacterAvatars(char.serverId, char.characterId);
-            const avatarsImgSrc = `https://img-api.neople.co.kr/df/servers/${char.serverId}/characters/${char.characterId}?zoom=1`;
-            return { ...char, avatars, avatarsImgSrc };
-          })
-        );
-        setCharacters(charactersWithAvatars);
-        saveCharacter(charactersWithAvatars);
+      const responseHandler = async (data: any) => {
+        // 데이터가 rows 배열을 포함하는지 확인합니다.
+        const rows = data.rows || data; // API가 rows 배열 대신 직접 캐릭터 목록을 반환할 수 있으므로 대비
+        if (Array.isArray(rows)) {
+          const charactersWithAvatars = await Promise.all(
+            rows.map(async (char: any) => {
+              const avatars = await fetchCharacterAvatars(char.serverId, char.characterId);
+              const avatarsImgSrc = `https://img-api.neople.co.kr/df/servers/${char.serverId}/characters/${char.characterId}?zoom=1`;
+              return { ...char, avatars, avatarsImgSrc };
+            })
+          );
+          setCharacters(charactersWithAvatars);
+          saveCharacter(charactersWithAvatars);
+        } else {
+          console.error("Unexpected data format:", data);
+        }
       };
 
       if (server === "adven") {
