@@ -1,13 +1,14 @@
 // app/character/page.tsx
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import { useCharacters } from "@/utils/useCharacters";
 import serverNames from "@/utils/data/serverName";
+import LoadingAnimation from "../_components/Loading";
 import classes from "./page.module.css";
 
 const SearchPageContent = () => {
@@ -15,7 +16,11 @@ const SearchPageContent = () => {
   const searchParams = useSearchParams();
   const server = searchParams.get("server");
   const name = searchParams.get("name");
-  const characters = useCharacters(server, name);
+  const { characters, allImagesLoaded } = useCharacters(server, name);
+
+  if (!allImagesLoaded) {
+    return <LoadingAnimation />;
+  }
 
   const handleCharacterClick = (serverId: string, characterId: string) => {
     router.push(`/character?server=${serverId}&id=${characterId}`);
@@ -33,7 +38,17 @@ const SearchPageContent = () => {
           <li key={char.characterId} onClick={() => handleCharacterClick(char.serverId, char.characterId)}>
             <div className={classes.character}>
               <div className={classes.avatars}>
-                <Image src={char.avatarsImgSrc} width={250} height={0} placeholder="blur" blurDataURL={char.avatarsImgSrc} alt="아바타 이미지"></Image>
+                <Image
+                  src={char.avatarsImgSrc}
+                  width={250}
+                  height={0}
+                  placeholder="blur"
+                  blurDataURL={char.avatarsImgSrc}
+                  alt="아바타 이미지"
+                  onLoad={() => {
+                    /* 이미지 로드 완료 처리 */
+                  }}
+                ></Image>
               </div>
               <div className={classes.info}>
                 <div className={classes.fame}>
