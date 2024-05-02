@@ -6,7 +6,7 @@ const LoadingAnimation = () => {
   return (
     <div className={classes.loadingAnimation}>
       <div className={classes.spinner}></div>
-      <span>Loading...</span>
+      <p>Loading...</p>
     </div>
   );
 };
